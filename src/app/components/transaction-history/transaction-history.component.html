@@ -1,0 +1,52 @@
+<div tuiCardLarge tuiSurface="elevated">
+  <header tuiHeader>
+    <h1 tuiTitle>Ваш список транзакций</h1>
+  </header>
+
+  @if (transactions.length === 0) {
+    <div>
+      <div tuiTitle>Транзакций нет</div>
+    </div>
+  } @else {
+    <tui-scrollbar style="max-height: 1075px">
+      @for (transaction of transactions; track transaction.id) {
+        <div
+          style="margin: 15px"
+          tuiHint="{{ transaction.comment }}"
+          tuiHintDirection="top"
+          tuiHintPointer
+          tuiCardLarge
+          tuiSurface="elevated"
+          [@listAnimation]
+        >
+          <div tuiHeader>
+            <div tuiTitle="m">{{ transaction.category }}</div>
+            <div
+              class="subtitleAmount"
+              [style.color]="transaction.type | TransactionColor"
+            >
+              {{ transaction.amount | currencySymbol: transaction.type }}
+            </div>
+          </div>
+          <div tuiCell class="bottomCell">
+            <div>
+              {{ transaction.type }}
+              <div>{{ transaction.date | dayShortFormatPipe }}</div>
+            </div>
+            <div class="buttonsGroup">
+              <button
+                appearance="custom"
+                tuiButton
+                type="button"
+                size="m"
+                icon="tuiIconClose"
+                tuiIconButton
+                (click)="deleteTransaction(transaction.id)"
+              ></button>
+            </div>
+          </div>
+        </div>
+      }
+    </tui-scrollbar>
+  }
+</div>

@@ -1,0 +1,107 @@
+<form
+  tuiCardLarge
+  tuiSurface="elevated"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+>
+  <div tuiHeader>
+    <div tuiTitle="l">Финансовый Трекер</div>
+  </div>
+
+  <div tuiGroup [collapsed]="true" class="group">
+    <tui-radio-block
+      [formControl]="form.controls.transactionType"
+      item="Income"
+      contentAlign="left"
+    >
+      Доход
+    </tui-radio-block>
+    <tui-radio-block
+      [formControl]="form.controls.transactionType"
+      item="Expense"
+      contentAlign="left"
+    >
+      Расход
+    </tui-radio-block>
+  </div>
+  <tui-error
+    [formControl]="form.controls.transactionType"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <div>
+    <tui-select [formControl]="form.controls.category">
+      Категория
+      <input tuiTextfield />
+      <tui-data-list-wrapper
+        *tuiDataList
+        [items]="
+          transactionService.getItems(form.controls.transactionType.value)
+        "
+      ></tui-data-list-wrapper>
+    </tui-select>
+  </div>
+  <tui-error
+    [formControl]="form.controls.category"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <div>
+    <tui-input-number
+      [formControl]="form.controls.amount"
+      [tuiTextfieldPrefix]="'RUB' | tuiCurrency"
+    >
+      Введите сумму
+    </tui-input-number>
+  </div>
+  <tui-error
+    [formControl]="form.controls.amount"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  <div>
+    <tui-input-date
+      [formControl]="form.controls.date"
+      [max]="TuiDay.currentLocal()"
+    >
+      Выберите дату
+    </tui-input-date>
+  </div>
+  <tui-error
+    [formControl]="form.controls.date"
+    [error]="[] | tuiFieldError | async"
+  />
+
+  @if (form.controls.addComment.value) {
+    <div>
+      <tui-textarea [formControl]="form.controls.comment" [maxLength]="100">
+        Введите комментарий
+      </tui-textarea>
+    </div>
+    <tui-error
+      [formControl]="form.controls.comment"
+      [error]="[] | tuiFieldError | async"
+    />
+  }
+
+  <div tuiGroup>
+    <label tuiLabel>
+      <tui-toggle
+        size="l"
+        class="tui-space_right-1"
+        [formControl]="form.controls.addComment"
+        [appCommentValidator]="form.controls.comment"
+      ></tui-toggle>
+      Добавить комментарий
+    </label>
+  </div>
+
+  <button
+    appearance="custom-submit-button"
+    tuiButton
+    type="submit"
+    [showLoader]="loading()"
+  >
+    Отправить
+  </button>
+</form>

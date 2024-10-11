@@ -1,0 +1,60 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+:host {
+  --tui-chart-0: #1f77b4;
+  --tui-chart-1: #ff7f0e;
+  --tui-chart-2: #2ca02c;
+  --tui-chart-3: #d62728;
+  --tui-chart-4: #9467bd;
+  --tui-chart-5: #8c564b;
+  --tui-chart-6: #e377c2;
+  --tui-chart-7: #7f7f7f;
+  --tui-chart-8: #bcbd22;
+  --tui-chart-9: #17becf;
+  --tui-chart-10: #ffbb78;
+  --tui-chart-11: #98df8a;
+  --tui-chart-12: #ff9896;
+  --tui-chart-13: #c5b0d5;
+  --tui-chart-14: #c49c94;
+}
+
+
+
+
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  @media @tui-mobile {
+    flex-direction: column;
+  }
+}
+
+.legend {
+  margin: 0 0 0 2rem;
+
+  @media @tui-mobile {
+    margin: 2rem 0 0;
+  }
+}
+
+.disable {
+  .transition(~'transform, color');
+  margin-left: 0.25rem;
+  will-change: transform;
+  color: var(--tui-text-02);
+  pointer-events: auto;
+
+  &:hover {
+    color: var(--tui-text-01);
+  }
+
+  &_rotated {
+    transform: rotate(45deg);
+  }
+}
+
+
+.item {
+  margin: 0 0.5rem 0.75rem 0;
+}

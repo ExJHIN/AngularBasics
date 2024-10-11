@@ -1,0 +1,99 @@
+<div tuiCardLarge tuiSurface="elevated">
+  <div tuiCardLarge tuiSurface="elevated">
+    <div class="wrapper">
+      <tui-ring-chart
+        size="xl"
+        [value]="getValue(TRANSACTION_KEY_TYPES.INCOME)"
+        [(activeItemIndex)]="activeItemIndex[TRANSACTION_KEY_TYPES.INCOME]"
+      >
+        <tui-money [value]="sumArray(TRANSACTION_KEY_TYPES.INCOME)"></tui-money>
+        <div>{{ label(TRANSACTION_KEY_TYPES.INCOME) }}</div>
+      </tui-ring-chart>
+
+      <div class="legend">
+        @for (label of labels[TRANSACTION_KEY_TYPES.INCOME]; track $index) {
+          <tui-legend-item
+            size="s"
+            class="item"
+            #item
+            [active]="isItemActive(TRANSACTION_KEY_TYPES.INCOME, $index)"
+            [color]="getColor($index)"
+            [disabled]="!isEnabled(TRANSACTION_KEY_TYPES.INCOME, $index)"
+            [text]="label"
+            (tuiHoveredChange)="
+              onHover(TRANSACTION_KEY_TYPES.INCOME, $index, $event)
+            "
+            (click)="onClick(TRANSACTION_KEY_TYPES.INCOME, $index)"
+            (keydown.delete)="toggleItem(TRANSACTION_KEY_TYPES.INCOME, $index)"
+          >
+            <tui-primitive-checkbox
+              [value]="!item.disabled"
+            ></tui-primitive-checkbox>
+            <tui-money
+              [singleColor]="true"
+              [value]="values[TRANSACTION_KEY_TYPES.INCOME][$index]"
+            ></tui-money>
+            <tui-svg
+              src="tuiIconClose"
+              class="disable"
+              [class.disable_rotated]="item.disabled"
+              (click)="
+                onToggleClick($event, TRANSACTION_KEY_TYPES.INCOME, $index)
+              "
+            ></tui-svg>
+          </tui-legend-item>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div tuiCardLarge tuiSurface="elevated">
+    <div class="wrapper">
+      <tui-ring-chart
+        size="xl"
+        [value]="getValue(TRANSACTION_KEY_TYPES.EXPENSE)"
+        [(activeItemIndex)]="activeItemIndex[TRANSACTION_KEY_TYPES.EXPENSE]"
+      >
+        <tui-money
+          [value]="sumArray(TRANSACTION_KEY_TYPES.EXPENSE)"
+        ></tui-money>
+        <div>{{ label(TRANSACTION_KEY_TYPES.EXPENSE) }}</div>
+      </tui-ring-chart>
+
+      <div class="legend">
+        @for (label of labels[TRANSACTION_KEY_TYPES.EXPENSE]; track $index) {
+          <tui-legend-item
+            size="s"
+            class="item"
+            #item
+            [active]="isItemActive(TRANSACTION_KEY_TYPES.EXPENSE, $index)"
+            [color]="getColor($index)"
+            [disabled]="!isEnabled(TRANSACTION_KEY_TYPES.EXPENSE, $index)"
+            [text]="label"
+            (tuiHoveredChange)="
+              onHover(TRANSACTION_KEY_TYPES.EXPENSE, $index, $event)
+            "
+            (click)="onClick(TRANSACTION_KEY_TYPES.EXPENSE, $index)"
+            (keydown.delete)="toggleItem(TRANSACTION_KEY_TYPES.EXPENSE, $index)"
+          >
+            <tui-primitive-checkbox
+              [value]="!item.disabled"
+            ></tui-primitive-checkbox>
+            <tui-money
+              [singleColor]="true"
+              [value]="values[TRANSACTION_KEY_TYPES.EXPENSE][$index]"
+            ></tui-money>
+            <tui-svg
+              src="tuiIconClose"
+              class="disable"
+              [class.disable_rotated]="item.disabled"
+              (click)="
+                onToggleClick($event, TRANSACTION_KEY_TYPES.EXPENSE, $index)
+              "
+            ></tui-svg>
+          </tui-legend-item>
+        }
+      </div>
+    </div>
+  </div>
+</div>
